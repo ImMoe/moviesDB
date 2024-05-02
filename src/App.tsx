@@ -1,11 +1,23 @@
-import { Grid, GridItem, HStack } from '@chakra-ui/react';
+import { Grid, GridItem, HStack, Image } from '@chakra-ui/react';
 import ToggleTheme from './components/ToggleTheme';
+import Logo from './assets/popcorn.png';
 
 const App = () => {
   return (
-    <Grid templateAreas={`"header header" "aside main" "aside footer"`}>
-      <GridItem>
-        <HStack>
+    <Grid
+      templateAreas={{
+        base: `"nav" "main" "footer"`,
+        lg: `"nav nav" "aside main" "aside footer"`,
+      }}
+      templateColumns={{
+        base: '1fr',
+        lg: '250px 1fr',
+      }}
+      padding={5}
+    >
+      <GridItem area='nav'>
+        <HStack justifyContent='space-between'>
+          <Image src={Logo} boxSize={16} />
           <ToggleTheme />
         </HStack>
       </GridItem>
