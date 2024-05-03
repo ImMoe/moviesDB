@@ -1,9 +1,12 @@
-import { Card, CardBody, Image, Text } from '@chakra-ui/react';
+import { Card, CardBody, HStack, Image, Text } from '@chakra-ui/react';
+import Rating from './Rating';
 
 export interface Movie {
   id: number;
   title: string;
   poster_path: string;
+  release_date: string;
+  vote_average: number;
 }
 
 interface Props {
@@ -19,7 +22,24 @@ const MovieItem = ({ movie }: Props) => {
         objectFit='cover'
       />
       <CardBody>
-        <Text fontSize='lg'>{movie.title}</Text>
+        <Text fontSize='md' fontWeight='bold'>
+          {movie.title}
+        </Text>
+        <HStack justifyContent='space-between'>
+          <Text fontSize='sm'>{movie.release_date}</Text>
+          <Rating
+            colorScheme={
+              movie.vote_average < 4
+                ? 'red'
+                : movie.vote_average < 6
+                ? 'yellow'
+                : movie.vote_average < 10
+                ? 'green'
+                : ''
+            }
+            rating={movie.vote_average.toFixed(1)}
+          />
+        </HStack>
       </CardBody>
     </Card>
   );
