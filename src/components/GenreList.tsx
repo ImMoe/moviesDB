@@ -7,7 +7,7 @@ const GenreList = () => {
 
   if (error) return <h2>{error}</h2>;
   return (
-    <List>
+    <List marginTop={5}>
       {genres.map((genre) => (
         <GenreItem key={genre.id} genre={genre} />
       ))}

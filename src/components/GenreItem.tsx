@@ -5,7 +5,11 @@ interface Props {
   genre: Genre;
 }
 const GenreItem = ({ genre }: Props) => {
-  return <ListItem>{genre.name}</ListItem>;
+  return (
+    <ListItem fontSize='lg' marginBottom={2} cursor='pointer'>
+      {genre.name}
+    </ListItem>
+  );
 };
 
 export default GenreItem;
