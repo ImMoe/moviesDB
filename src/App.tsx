@@ -1,6 +1,7 @@
 import { Grid, GridItem, HStack, Image } from '@chakra-ui/react';
 import ToggleTheme from './components/ToggleTheme';
 import Logo from './assets/popcorn.png';
+import MovieList from './components/MovieList';
 
 const App = () => {
   return (
@@ -21,6 +22,11 @@ const App = () => {
           <ToggleTheme />
         </HStack>
       </GridItem>
+      <GridItem area='aside'></GridItem>
+      <GridItem area='main'>
+        <MovieList />
+      </GridItem>
+      <GridItem area='footer'></GridItem>
     </Grid>
   );
 };
