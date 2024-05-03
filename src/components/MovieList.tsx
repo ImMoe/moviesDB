@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import apiService from '../services/api-service';
 import { CanceledError } from 'axios';
+import { Card, CardBody, Image, SimpleGrid, Text } from '@chakra-ui/react';
+import MovieItem, { Movie } from './MovieItem';
 
-interface Movie {
-  id: number;
-  original_title: string;
-}
 interface FetchMoviesResponse {
   count: number;
   results: Movie[];
@@ -29,7 +27,13 @@ const MovieList = () => {
     };
   }, []);
   if (error) return <h2>{error}</h2>;
-  return <div>MovieList</div>;
+  return (
+    <SimpleGrid columns={3} spacing={8}>
+      {movies.map((movie) => (
+        <MovieItem key={movie.id} movie={movie} />
+      ))}
+    </SimpleGrid>
+  );
 };
 
 export default MovieList;
