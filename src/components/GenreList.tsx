@@ -1,30 +1,21 @@
-import { Badge, HStack, List, Spinner } from '@chakra-ui/react';
+import { Box, List, Spinner } from '@chakra-ui/react';
 import useGenres from '../hooks/useGenres';
 import GenreItem from './GenreItem';
-import { Movie } from './MovieItem';
 
 interface Props {
-  movies: Movie[];
+  onClickHandler: (id: number) => void;
 }
-const GenreList = ({ movies }: Props) => {
+const GenreList = ({ onClickHandler }: Props) => {
   const { genres, error, isLoading } = useGenres();
-
-  const getTotalMoviesInGenre = (genreId: number): number => {
-    const totalMovies = movies.filter((movie) =>
-      movie.genre_ids.includes(genreId)
-    );
-    return totalMovies.length;
-  };
 
   if (error) return <h2>{error}</h2>;
   return (
     <List marginTop={5}>
       {isLoading && <Spinner />}
       {genres.map((genre) => (
-        <HStack padding={1}>
-          <Badge fontSize='md'>{getTotalMoviesInGenre(genre.id)}</Badge>
-          <GenreItem key={genre.id} genre={genre} />
-        </HStack>
+        <Box paddingBottom={4} key={genre.id}>
+          <GenreItem genre={genre} onClickHandler={onClickHandler} />
+        </Box>
       ))}
     </List>
   );

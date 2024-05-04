@@ -4,9 +4,22 @@ import Logo from './assets/popcorn.png';
 import MovieList from './components/MovieList';
 import GenreList from './components/GenreList';
 import useMovies from './hooks/useMovies';
+import { useEffect, useState } from 'react';
+import { Movie } from './components/MovieItem';
 
 const App = () => {
   const { data, error, isLoading } = useMovies();
+  const [displayedMovies, setDisplayedMovies] = useState<Movie[]>([]);
+
+  useEffect(() => {
+    setDisplayedMovies(data);
+  }, [data]);
+
+  const filterByGenre = (id: number): void => {
+    const filteredMovies = data.filter((movie) => movie.genre_ids.includes(id));
+    setDisplayedMovies(filteredMovies);
+  };
+
   return (
     <Grid
       templateAreas={{
@@ -26,10 +39,10 @@ const App = () => {
         </HStack>
       </GridItem>
       <GridItem area='aside'>
-        <GenreList movies={data} />
+        <GenreList onClickHandler={filterByGenre} />
       </GridItem>
       <GridItem area='main'>
-        <MovieList data={data} error={error} isLoading={isLoading} />
+        <MovieList data={displayedMovies} error={error} isLoading={isLoading} />
       </GridItem>
       <GridItem area='footer'></GridItem>
     </Grid>

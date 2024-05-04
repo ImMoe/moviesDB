@@ -1,14 +1,15 @@
-import { ListItem } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 import { Genre } from '../hooks/useGenres';
 
 interface Props {
   genre: Genre;
+  onClickHandler: (id: number) => void;
 }
-const GenreItem = ({ genre }: Props) => {
+const GenreItem = ({ genre, onClickHandler }: Props) => {
   return (
-    <ListItem fontSize='lg' cursor='pointer'>
+    <Button fontSize='lg' onClick={() => onClickHandler(genre.id)}>
       {genre.name}
-    </ListItem>
+    </Button>
   );
 };
 
