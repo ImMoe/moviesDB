@@ -1,4 +1,4 @@
-import { Badge, HStack, List } from '@chakra-ui/react';
+import { Badge, HStack, List, Spinner } from '@chakra-ui/react';
 import useGenres from '../hooks/useGenres';
 import GenreItem from './GenreItem';
 import { Movie } from './MovieItem';
@@ -19,6 +19,7 @@ const GenreList = ({ movies }: Props) => {
   if (error) return <h2>{error}</h2>;
   return (
     <List marginTop={5}>
+      {isLoading && <Spinner />}
       {genres.map((genre) => (
         <HStack padding={1}>
           <Badge fontSize='md'>{getTotalMoviesInGenre(genre.id)}</Badge>
