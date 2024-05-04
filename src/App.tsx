@@ -3,8 +3,10 @@ import ToggleTheme from './components/ToggleTheme';
 import Logo from './assets/popcorn.png';
 import MovieList from './components/MovieList';
 import GenreList from './components/GenreList';
+import useMovies from './hooks/useMovies';
 
 const App = () => {
+  const { data, error, isLoading } = useMovies();
   return (
     <Grid
       templateAreas={{
@@ -24,10 +26,10 @@ const App = () => {
         </HStack>
       </GridItem>
       <GridItem area='aside'>
-        <GenreList />
+        <GenreList movies={data} />
       </GridItem>
       <GridItem area='main'>
-        <MovieList />
+        <MovieList data={data} error={error} isLoading={isLoading} />
       </GridItem>
       <GridItem area='footer'></GridItem>
     </Grid>

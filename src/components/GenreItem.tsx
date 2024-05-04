@@ -6,7 +6,7 @@ interface Props {
 }
 const GenreItem = ({ genre }: Props) => {
   return (
-    <ListItem fontSize='lg' marginBottom={2} cursor='pointer'>
+    <ListItem fontSize='lg' cursor='pointer'>
       {genre.name}
     </ListItem>
   );
