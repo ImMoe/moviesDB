@@ -1,4 +1,4 @@
-import { Grid, GridItem, HStack, Image } from '@chakra-ui/react';
+import { Grid, GridItem, HStack, Image, Show } from '@chakra-ui/react';
 import ToggleTheme from './components/ToggleTheme';
 import Logo from './assets/popcorn.png';
 import MovieList from './components/MovieList';
@@ -38,9 +38,11 @@ const App = () => {
           <ToggleTheme />
         </HStack>
       </GridItem>
-      <GridItem area='aside'>
-        <GenreList onClickHandler={filterByGenre} />
-      </GridItem>
+      <Show above='lg'>
+        <GridItem area='aside'>
+          <GenreList onClickHandler={filterByGenre} />
+        </GridItem>
+      </Show>
       <GridItem area='main'>
         <MovieList data={displayedMovies} error={error} isLoading={isLoading} />
       </GridItem>
