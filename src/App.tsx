@@ -26,6 +26,19 @@ const App = () => {
     setDisplayedMovies(filteredMovies);
   };
 
+  const sortMovies = (by: string): void => {
+    if (by === 'Latest') {
+      const sortedMovies = [...displayedMovies].sort(
+        (a, b) =>
+          new Date(b.release_date).getTime() -
+          new Date(a.release_date).getTime()
+      );
+      setDisplayedMovies(sortedMovies);
+    } else {
+      setDisplayedMovies(data);
+    }
+  };
+
   return (
     <Grid
       templateAreas={{
@@ -47,7 +60,12 @@ const App = () => {
         </GridItem>
       </Show>
       <GridItem area='main'>
-        <MovieList data={displayedMovies} error={error} isLoading={isLoading} />
+        <MovieList
+          data={displayedMovies}
+          error={error}
+          isLoading={isLoading}
+          onSortHandler={sortMovies}
+        />
       </GridItem>
       <GridItem area='footer'></GridItem>
     </Grid>
