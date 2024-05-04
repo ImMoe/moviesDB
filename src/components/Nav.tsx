@@ -2,7 +2,11 @@ import { HStack, Image, Input } from '@chakra-ui/react';
 import ToggleTheme from '../components/ToggleTheme';
 import Logo from '../assets/popcorn.png';
 
-const Nav = () => {
+interface Props {
+  onSearchHandler: (input: string) => void;
+}
+
+const Nav = ({ onSearchHandler }: Props) => {
   return (
     <HStack justifyContent='space-between'>
       <Image src={Logo} boxSize={16} />
@@ -10,6 +14,7 @@ const Nav = () => {
         placeholder='Search and find movies by name...'
         marginX={5}
         fontSize='md'
+        onChange={(event) => onSearchHandler(event.target.value)}
       />
       <ToggleTheme />
     </HStack>

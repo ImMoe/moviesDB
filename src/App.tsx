@@ -19,6 +19,13 @@ const App = () => {
     setDisplayedMovies(filteredMovies);
   };
 
+  const filterByName = (input: string): void => {
+    const filteredMovies = data.filter((movie) =>
+      movie.title.toLowerCase().includes(input.toLowerCase())
+    );
+    setDisplayedMovies(filteredMovies);
+  };
+
   return (
     <Grid
       templateAreas={{
@@ -32,7 +39,7 @@ const App = () => {
       padding={5}
     >
       <GridItem area='nav'>
-        <Nav />
+        <Nav onSearchHandler={filterByName} />
       </GridItem>
       <Show above='lg'>
         <GridItem area='aside'>
