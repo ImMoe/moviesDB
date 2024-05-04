@@ -1,10 +1,10 @@
+import { useEffect, useState } from 'react';
 import { Grid, GridItem, HStack, Image, Show } from '@chakra-ui/react';
 import ToggleTheme from './components/ToggleTheme';
 import Logo from './assets/popcorn.png';
 import MovieList from './components/MovieList';
 import GenreList from './components/GenreList';
 import useMovies from './hooks/useMovies';
-import { useEffect, useState } from 'react';
 import { Movie } from './components/MovieItem';
 
 const App = () => {

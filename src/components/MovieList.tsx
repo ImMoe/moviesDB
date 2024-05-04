@@ -14,7 +14,7 @@ const MovieList = ({ data: movies, error, isLoading }: Props) => {
   if (error) return <h2>{error}</h2>;
   return (
     <>
-      <Text paddingY={4}>Showing {movies.length} movies</Text>
+      {!isLoading && <Text paddingY={4}>Showing {movies.length} movies</Text>}
       <SimpleGrid
         columns={{
           base: 1,
