@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Grid, GridItem, HStack, Image, Show } from '@chakra-ui/react';
-import ToggleTheme from './components/ToggleTheme';
-import Logo from './assets/popcorn.png';
+import { Grid, GridItem, Show } from '@chakra-ui/react';
 import MovieList from './components/MovieList';
 import GenreList from './components/GenreList';
 import useMovies from './hooks/useMovies';
 import { Movie } from './components/MovieItem';
+import Nav from './components/Nav';
 
 const App = () => {
   const { data, error, isLoading } = useMovies();
@@ -33,10 +32,7 @@ const App = () => {
       padding={5}
     >
       <GridItem area='nav'>
-        <HStack justifyContent='space-between'>
-          <Image src={Logo} boxSize={16} />
-          <ToggleTheme />
-        </HStack>
+        <Nav />
       </GridItem>
       <Show above='lg'>
         <GridItem area='aside'>
