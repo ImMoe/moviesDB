@@ -5,8 +5,6 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-  ModalFooter,
-  Button,
 } from '@chakra-ui/react';
 
 interface Props {
@@ -31,12 +29,6 @@ const TrailerModal = ({ movieName, movieKey, isOpen, onModalClose }: Props) => {
             allowFullScreen
           />
         </ModalBody>
-
-        <ModalFooter paddingX={2}>
-          <Button colorScheme='orange' mr={3} onClick={() => onModalClose()}>
-            Close
-          </Button>
-        </ModalFooter>
       </ModalContent>
     </Modal>
   );
