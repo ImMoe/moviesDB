@@ -3,7 +3,7 @@ import useGenres from '../hooks/useGenres';
 import GenreItem from './GenreItem';
 
 interface Props {
-  onClickHandler: (id: number) => void;
+  onClickHandler: (by: string, id: number) => void;
 }
 const GenreList = ({ onClickHandler }: Props) => {
   const { genres, error, isLoading } = useGenres();

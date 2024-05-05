@@ -3,7 +3,7 @@ import ToggleTheme from '../components/ToggleTheme';
 import Logo from '../assets/popcorn.png';
 
 interface Props {
-  onSearchHandler: (input: string) => void;
+  onSearchHandler: (by: string, value: string) => void;
 }
 
 const Nav = ({ onSearchHandler }: Props) => {
@@ -14,7 +14,7 @@ const Nav = ({ onSearchHandler }: Props) => {
         placeholder='Search and find movies by name...'
         marginX={5}
         fontSize='md'
-        onChange={(event) => onSearchHandler(event.target.value)}
+        onChange={(event) => onSearchHandler('name', event.target.value)}
       />
       <ToggleTheme />
     </HStack>

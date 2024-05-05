@@ -3,11 +3,11 @@ import { Genre } from '../hooks/useGenres';
 
 interface Props {
   genre: Genre;
-  onClickHandler: (id: number) => void;
+  onClickHandler: (by: string, value: number) => void;
 }
 const GenreItem = ({ genre, onClickHandler }: Props) => {
   return (
-    <Button fontSize='lg' onClick={() => onClickHandler(genre.id)}>
+    <Button fontSize='lg' onClick={() => onClickHandler('genre', genre.id)}>
       {genre.name}
     </Button>
   );

@@ -14,17 +14,24 @@ const App = () => {
     setDisplayedMovies(data);
   }, [data]);
 
-  const filterByGenre = (id: number): void => {
-    const filteredMovies = data.filter((movie) => movie.genre_ids.includes(id));
-    setDisplayedMovies(filteredMovies);
-  };
-
-  const filterByName = (input: string): void => {
-    const filteredMovies = data.filter((movie) =>
-      movie.title.toLowerCase().includes(input.toLowerCase())
-    );
-    setDisplayedMovies(filteredMovies);
-  };
+  function filterMovies<B extends String, V extends string | number>(
+    by: B,
+    value: V
+  ) {
+    let filteredMovies: Movie[];
+    switch (by.toLowerCase()) {
+      case 'genre':
+        filteredMovies = data.filter((movie) =>
+          movie.genre_ids.includes(+value)
+        );
+        return setDisplayedMovies(filteredMovies);
+      case 'name':
+        filteredMovies = data.filter((movie) =>
+          movie.title.toLowerCase().includes(String(value).toLowerCase())
+        );
+        return setDisplayedMovies(filteredMovies);
+    }
+  }
 
   const sortMovies = (by: string): void => {
     if (by === 'Latest') {
@@ -52,11 +59,11 @@ const App = () => {
       padding={5}
     >
       <GridItem area='nav'>
-        <Nav onSearchHandler={filterByName} />
+        <Nav onSearchHandler={filterMovies} />
       </GridItem>
       <Show above='lg'>
         <GridItem area='aside'>
-          <GenreList onClickHandler={filterByGenre} />
+          <GenreList onClickHandler={filterMovies} />
           <Button variant='link' onClick={() => setDisplayedMovies(data)}>
             Reset filter
           </Button>
