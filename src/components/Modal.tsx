@@ -5,6 +5,8 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
+  Box,
+  HStack,
 } from '@chakra-ui/react';
 
 interface Props {
@@ -19,16 +21,25 @@ const TrailerModal = ({ movieName, movieKey, isOpen, onModalClose }: Props) => {
     <Modal isOpen={isOpen} onClose={() => onModalClose()} size='xl' isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{movieName}</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody padding={0}>
-          <iframe
-            src={`https://www.youtube.com/embed/${movieKey}`}
-            width='100%'
-            height='400px'
-            allowFullScreen
-          />
-        </ModalBody>
+        {!movieName || !movieKey ? (
+          <HStack padding={5}>
+            <Box>No official trailer out yet.</Box>
+            <ModalCloseButton />
+          </HStack>
+        ) : (
+          <>
+            <ModalHeader>{movieName}</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody padding={0}>
+              <iframe
+                src={`https://www.youtube.com/embed/${movieKey}`}
+                width='100%'
+                height='400px'
+                allowFullScreen
+              />
+            </ModalBody>
+          </>
+        )}
       </ModalContent>
     </Modal>
   );

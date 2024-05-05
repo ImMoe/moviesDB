@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { Button, Grid, GridItem, Show } from '@chakra-ui/react';
 import MovieList from './components/MovieList';
 import GenreList from './components/GenreList';
-import useMovies from './hooks/useMovies';
 import { Movie } from './components/MovieItem';
 import Nav from './components/Nav';
 import Modal from './components/Modal';
+import useMovies from './hooks/useMovies';
 import apiService from './services/api-service';
 
 const App = () => {
@@ -87,8 +87,8 @@ const App = () => {
       {modalOpen && (
         <Modal
           isOpen={modalOpen}
-          movieName={selectedTrailer.name}
-          movieKey={selectedTrailer.key}
+          movieName={selectedTrailer?.name}
+          movieKey={selectedTrailer?.key}
           onModalClose={onModalClose}
         />
       )}
