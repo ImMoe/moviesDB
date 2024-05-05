@@ -10,7 +10,7 @@ const GenreList = ({ onClickHandler }: Props) => {
 
   if (error) return <h2>{error}</h2>;
   return (
-    <List marginTop={5}>
+    <List marginTop={10}>
       {isLoading && <Spinner />}
       {genres.map((genre) => (
         <Box paddingBottom={4} key={genre.id}>

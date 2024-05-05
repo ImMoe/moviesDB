@@ -21,8 +21,16 @@ const MovieList = ({
   if (error) return <h2>{error}</h2>;
   return (
     <>
-      <HStack justifyContent='space-between' paddingBottom={5}>
-        {!isLoading && <Text paddingY={4}>Showing {movies.length} movies</Text>}
+      <HStack justifyContent='space-between' paddingY={5}>
+        <Text
+          fontSize={{
+            base: 'xx-large',
+            lg: 'xxx-large',
+          }}
+          fontWeight='bold'
+        >
+          Movies
+        </Text>
         <Sort
           options={['Latest']}
           defaultOption='Trending'
