@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Grid, GridItem, Show } from '@chakra-ui/react';
+import { Button, Grid, GridItem, Show } from '@chakra-ui/react';
 import MovieList from './components/MovieList';
 import GenreList from './components/GenreList';
 import useMovies from './hooks/useMovies';
@@ -57,6 +57,9 @@ const App = () => {
       <Show above='lg'>
         <GridItem area='aside'>
           <GenreList onClickHandler={filterByGenre} />
+          <Button variant='link' onClick={() => setDisplayedMovies(data)}>
+            Reset filter
+          </Button>
         </GridItem>
       </Show>
       <GridItem area='main'>
