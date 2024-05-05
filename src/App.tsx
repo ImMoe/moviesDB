@@ -5,10 +5,17 @@ import GenreList from './components/GenreList';
 import useMovies from './hooks/useMovies';
 import { Movie } from './components/MovieItem';
 import Nav from './components/Nav';
+import Modal from './components/Modal';
+import apiService from './services/api-service';
 
 const App = () => {
   const { data, error, isLoading } = useMovies();
   const [displayedMovies, setDisplayedMovies] = useState<Movie[]>([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedTrailer, setSelectedTrailer] = useState<{
+    name: string;
+    key: string;
+  }>({ name: '', key: '' });
 
   useEffect(() => {
     setDisplayedMovies(data);
@@ -46,6 +53,25 @@ const App = () => {
     }
   };
 
+  const fetchVideoTrailer = (movieID: number) => {
+    apiService
+      .get<{ results: { name: string; key: string }[] }>(
+        `/movie/${movieID}/videos`
+      )
+      .then((res) => {
+        const selectedTrailer = res.data.results.filter(
+          (trailer) => trailer.name.toLowerCase() === 'official trailer'
+        )[0];
+        setModalOpen(true);
+        setSelectedTrailer(selectedTrailer);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const onModalClose = () => {
+    setModalOpen(false);
+  };
+
   return (
     <Grid
       templateAreas={{
@@ -58,6 +84,14 @@ const App = () => {
       }}
       padding={5}
     >
+      {modalOpen && (
+        <Modal
+          isOpen={modalOpen}
+          movieName={selectedTrailer.name}
+          movieKey={selectedTrailer.key}
+          onModalClose={onModalClose}
+        />
+      )}
       <GridItem area='nav'>
         <Nav onSearchHandler={filterMovies} />
       </GridItem>
@@ -75,6 +109,7 @@ const App = () => {
           error={error}
           isLoading={isLoading}
           onSortHandler={sortMovies}
+          onShowTrailer={fetchVideoTrailer}
         />
       </GridItem>
       <GridItem area='footer'></GridItem>

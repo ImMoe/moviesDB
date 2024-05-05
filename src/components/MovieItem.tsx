@@ -1,4 +1,4 @@
-import { Card, CardBody, HStack, Image, Text } from '@chakra-ui/react';
+import { Button, Card, CardBody, HStack, Image, Text } from '@chakra-ui/react';
 import Rating from './Rating';
 
 export interface Movie {
@@ -12,9 +12,10 @@ export interface Movie {
 
 interface Props {
   movie: Movie;
+  onShowTrailer: (id: number) => void;
 }
 
-const MovieItem = ({ movie }: Props) => {
+const MovieItem = ({ movie, onShowTrailer }: Props) => {
   return (
     <Card borderRadius={8} overflow='hidden'>
       <Image
@@ -41,6 +42,17 @@ const MovieItem = ({ movie }: Props) => {
             rating={movie.vote_average.toFixed(1)}
           />
         </HStack>
+        <Button
+          variant='link'
+          paddingTop={2}
+          colorScheme='orange'
+          fontWeight='bold'
+          cursor='pointer'
+          textDecoration='underline'
+          onClick={() => onShowTrailer(movie.id)}
+        >
+          Watch Trailer
+        </Button>
       </CardBody>
     </Card>
   );
