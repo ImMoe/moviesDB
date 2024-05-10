@@ -9,7 +9,8 @@ import useMovies from './hooks/useMovies';
 import apiService from './services/api-service';
 
 const App = () => {
-  const { data, error, isLoading } = useMovies();
+  const [page, setPage] = useState(1);
+  const { data, error, isLoading } = useMovies(page);
   const [displayedMovies, setDisplayedMovies] = useState<Movie[] | undefined>(
     data
   );
@@ -114,6 +115,9 @@ const App = () => {
           isLoading={isLoading}
           onSortHandler={sortMovies}
           onShowTrailer={fetchVideoTrailer}
+          page={page}
+          previousPage={() => setPage(page - 1)}
+          nextPage={() => setPage(page + 1)}
         />
       </GridItem>
       <GridItem area='footer'></GridItem>

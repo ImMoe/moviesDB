@@ -6,12 +6,16 @@ interface FetchDataResponse<T> {
   results: T[];
 }
 
-const useData = <T>(endpoint: string) => {
+const useData = <T>(endpoint: string, page: number = 1) => {
   const { data, error, isLoading } = useQuery<T[], Error>({
-    queryKey: ['get data', endpoint],
+    queryKey: ['get data', endpoint, page],
     queryFn: () =>
       apiService
-        .get<FetchDataResponse<T>>(endpoint)
+        .get<FetchDataResponse<T>>(endpoint, {
+          params: {
+            page,
+          },
+        })
         .then((response) => response.data.results),
   });
   return { data, error, isLoading };

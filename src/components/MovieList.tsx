@@ -1,4 +1,4 @@
-import { SimpleGrid, Text, HStack } from '@chakra-ui/react';
+import { SimpleGrid, Text, HStack, Button } from '@chakra-ui/react';
 import MovieItem, { Movie } from './MovieItem';
 import MovieSkeleton from './MovieSkeleton';
 import Sort from './Sort';
@@ -9,6 +9,9 @@ interface Props {
   isLoading: boolean;
   onSortHandler: (by: string) => void;
   onShowTrailer: (id: number) => void;
+  page: number;
+  previousPage: () => void;
+  nextPage: () => void;
 }
 
 const MovieList = ({
@@ -17,6 +20,9 @@ const MovieList = ({
   isLoading,
   onSortHandler,
   onShowTrailer,
+  page,
+  previousPage,
+  nextPage,
 }: Props) => {
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
   if (error) return <h2>{error}</h2>;
@@ -60,6 +66,15 @@ const MovieList = ({
           />
         ))}
       </SimpleGrid>
+      <HStack my={4} justifyContent='center'>
+        <Button isDisabled={page === 1} onClick={previousPage}>
+          Previous
+        </Button>
+        <Text fontSize='xl' padding={2} fontWeight='bold'>
+          {page}
+        </Text>
+        <Button onClick={nextPage}>Next</Button>
+      </HStack>
     </>
   );
 };
