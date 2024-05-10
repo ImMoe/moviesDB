@@ -10,7 +10,9 @@ import apiService from './services/api-service';
 
 const App = () => {
   const { data, error, isLoading } = useMovies();
-  const [displayedMovies, setDisplayedMovies] = useState<Movie[]>([]);
+  const [displayedMovies, setDisplayedMovies] = useState<Movie[] | undefined>(
+    data
+  );
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedTrailer, setSelectedTrailer] = useState<{
     name: string;
@@ -25,15 +27,15 @@ const App = () => {
     by: B,
     value: V
   ) {
-    let filteredMovies: Movie[];
+    let filteredMovies;
     switch (by.toLowerCase()) {
       case 'genre':
-        filteredMovies = data.filter((movie) =>
+        filteredMovies = data?.filter((movie) =>
           movie.genre_ids.includes(+value)
         );
         return setDisplayedMovies(filteredMovies);
       case 'name':
-        filteredMovies = data.filter((movie) =>
+        filteredMovies = data?.filter((movie) =>
           movie.title.toLowerCase().includes(String(value).toLowerCase())
         );
         return setDisplayedMovies(filteredMovies);
@@ -42,11 +44,13 @@ const App = () => {
 
   const sortMovies = (by: string): void => {
     if (by === 'Latest') {
-      const sortedMovies = [...displayedMovies].sort(
-        (a, b) =>
-          new Date(b.release_date).getTime() -
-          new Date(a.release_date).getTime()
-      );
+      const sortedMovies = displayedMovies
+        ? [...displayedMovies].sort(
+            (a, b) =>
+              new Date(b.release_date).getTime() -
+              new Date(a.release_date).getTime()
+          )
+        : [];
       setDisplayedMovies(sortedMovies);
     } else {
       setDisplayedMovies(data);
@@ -105,8 +109,8 @@ const App = () => {
       </Show>
       <GridItem area='main'>
         <MovieList
-          data={displayedMovies}
-          error={error}
+          data={displayedMovies ? displayedMovies : []}
+          error={error ? error?.message : ''}
           isLoading={isLoading}
           onSortHandler={sortMovies}
           onShowTrailer={fetchVideoTrailer}

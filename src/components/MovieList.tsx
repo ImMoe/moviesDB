@@ -18,7 +18,6 @@ const MovieList = ({
   onSortHandler,
   onShowTrailer,
 }: Props) => {
-  if (movies.length < 0) return;
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
   if (error) return <h2>{error}</h2>;
   return (
