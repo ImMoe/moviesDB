@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
 import apiService from '../services/api-service';
-import { CanceledError } from 'axios';
+import { useQuery } from '@tanstack/react-query';
 
 export interface Genre {
   id: number;
@@ -12,28 +11,17 @@ interface FetchGenresResponse {
 }
 
 const useGenres = () => {
-  const [genres, setGenres] = useState<Genre[]>([]);
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    const controller = new AbortController();
-    apiService
-      .get<FetchGenresResponse>('/genre/movie/list', {
-        signal: controller.signal,
-      })
-      .then((res) => {
-        setGenres(res.data.genres);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        if (err instanceof CanceledError) return;
-        setError(err.message);
-        setIsLoading(false);
-      });
-    return () => controller.abort();
-  }, []);
+  const {
+    data: genres,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ['genres'],
+    queryFn: () =>
+      apiService
+        .get<FetchGenresResponse>('/genre/movie/list')
+        .then((response) => response.data.genres),
+  });
   return { genres, error, isLoading };
 };
 

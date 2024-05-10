@@ -8,15 +8,17 @@ interface Props {
 const GenreList = ({ onClickHandler }: Props) => {
   const { genres, error, isLoading } = useGenres();
 
-  if (error) return <h2>{error}</h2>;
+  if (error) return <h2>{error.message}</h2>;
   return (
     <List marginTop={10}>
       {isLoading && <Spinner />}
-      {genres.map((genre) => (
-        <Box paddingBottom={4} key={genre.id}>
-          <GenreItem genre={genre} onClickHandler={onClickHandler} />
-        </Box>
-      ))}
+      {genres
+        ? genres.map((genre) => (
+            <Box paddingBottom={4} key={genre.id}>
+              <GenreItem genre={genre} onClickHandler={onClickHandler} />
+            </Box>
+          ))
+        : []}
     </List>
   );
 };
