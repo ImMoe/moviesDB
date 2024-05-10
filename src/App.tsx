@@ -7,6 +7,7 @@ import Nav from './components/Nav';
 import Modal from './components/Modal';
 import useMovies from './hooks/useMovies';
 import apiService from './services/api-service';
+import Footer from './components/Footer';
 
 const App = () => {
   const [page, setPage] = useState(1);
@@ -120,7 +121,9 @@ const App = () => {
           nextPage={() => setPage(page + 1)}
         />
       </GridItem>
-      <GridItem area='footer'></GridItem>
+      <GridItem area='footer'>
+        <Footer />
+      </GridItem>
     </Grid>
   );
 };
